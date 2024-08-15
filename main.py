@@ -72,7 +72,13 @@ list_of_morse = {"A": ".-",
   '_': '..--.-',
   '"': '.-..-.',
   '@': '.--.-.',
-  '=': '-...-'}
+  '=': '-...-',
+  }
+
+morse_code_reversed = {}
+for letter, code in list_of_morse.items():
+   morse_code_reversed[code] = letter
+
 
 
 print('''  ____        __  __                     
@@ -81,19 +87,33 @@ print('''  ____        __  __
  |  __/| |_| | |  | | (_) | |  \\__ \\  __/
  |_|    \\__, |_|  |_|\\___/|_|  |___/\\___|
         |___/                            ''')
-print("Welcome to PyMorse!")
+print("Welcome to PyMorse! Choose a convertion type.")
 running = True
 while running:
- user_to_morse = input("Enter a message to convert: ")
- if user_to_morse == "Stop Running!":
+ choose = input("Text-to-Morse or Morse-to-Text (type 1 or 2): ")
+ if choose == "Stop Running!":
   running = False
- else:
+ elif choose == "1":
+  user_input = input("Enter a message to convert: ")
   morse = []
-  for letter in user_to_morse:
+  for letter in user_input:
    if letter in list_of_morse:
     morse.append(list_of_morse[letter])
    else:
     morse.append(letter)
   print(f"PyMorsed message: {' '.join(morse)}")
+ elif choose == "2":
+   user_input = input("Enter a message to convert: ")
+   text = ""
+   for word in user_input.split(" "):
+       for letter in word.split("/"):
+           if letter in morse_code_reversed:
+               text += morse_code_reversed[letter]
+           else:
+               text += "ㅤ"
+       
+   print("Unmorsed message:", text.strip())
+ else:
+   print("Enter a valid number or command.")
 
 
